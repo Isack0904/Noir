@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOIR BAR</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" sizes="64x64" href="https://i.imgur.com/wlGMY2D.png">
+
+  <!-- BULMA -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <style>
+    body { background-color: #0a0a0a; color: #eaeaea; }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+      url('https://images.unsplash.com/photo-1514933651103-005eec06c04b');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .gray-light { color: #ccc; }
+
+    /* LOGO */
+    .logo {
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 2s ease;
+      filter: drop-shadow(0 0 15px rgba(255,255,255,0.15));
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARRUSEL */
+    .carousel-container {
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-item {
+      min-width: 33.33%;
+      padding: 10px;
+    }
+
+    .carousel-item img {
+      border-radius: 10px;
+      transition: transform .3s;
+    }
+
+    .carousel-item img:hover {
+      transform: scale(1.05);
+    }
+
+    /* FORM */
+    .input, .textarea, .select select {
+      background-color: #111;
+      border: 1px solid #333;
+      color: #eaeaea;
+    }
+
+    .label { color: #ccc; }
+
+    .button.is-gray {
+      background-color: #eaeaea;
+      color: #0a0a0a;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero is-fullheight">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+
+        <img src="https://imgur.com/FKvhDYv.png" class="logo">
+
+        <p class="subtitle is-4 gray-light mt-4">
+          Somos un servicio de coctelería con alma rebelde. Llevamos la fiesta, el estilo y los mejores cocteles directo a tu evento. Déjate llevar por el sabor
+        </p>
+
+        <a href="#formulario" class="button is-gray is-medium mt-4">
+          Reservar evento
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRUSEL -->
+  <section class="section">
+    <div class="container">
+      <h2 class="title has-text-centered">Galería</h2>
+
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="carousel-item">
+            <img src="https://i.imgur.com/plbZZNX.png">
+            <p class="has-text-centered gray-light">Niebla Azteca</p>
+          </div>
+
+          <div class="carousel-item">
+            <img src="https://i.imgur.com/g5FUlFe.png">
+            <p class="has-text-centered gray-light">Cóctel Noir</p>
+          </div>
+
+          <div class="carousel-item">
+            <img src="https://i.imgur.com/00tLqIZ.png">
+            <p class="has-text-centered gray-light">Espuma Lunar</p>
+          </div>
+
+          <div class="carousel-item">
+            <img src="https://i.imgur.com/vcIe7Tz.png">
+            <p class="has-text-centered gray-light">Sombra Blanca</p>
+          </div>
+
+          <div class="carousel-item">
+            <img src="https://i.imgur.com/V0WsZnx.png">
+            <p class="has-text-centered gray-light">Noir Citrus</p>
+          </div>
+
+          <div class="carousel-item">
+            <img src="https://i.imgur.com/Ih1SyY3.png">
+            <p class="has-text-centered gray-light">Eclipse Drink</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="section" id="formulario">
+    <div class="container">
+      <h2 class="title has-text-centered">Reservar evento</h2>
+
+      <form id="contactForm">
+        <div class="columns is-centered">
+          <div class="column is-half">
+
+            <div class="field">
+              <label class="label">Nombre</label>
+              <input class="input" type="text" id="nombre" required>
+            </div>
+
+            <div class="field">
+              <label class="label">Teléfono</label>
+              <input class="input" type="tel" id="telefono" required>
+            </div>
+
+            <div class="field">
+              <label class="label">Tipo de evento</label>
+              <div class="select is-fullwidth">
+                <select id="evento" required>
+                  <option value="">Selecciona</option>
+                  <option>Boda</option>
+                  <option>Cumpleaños</option>
+                  <option>Corporativo</option>
+                  <option>Privado</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Detalles</label>
+              <textarea class="textarea" id="mensaje"></textarea>
+            </div>
+
+            <div class="field has-text-centered">
+              <button type="submit" class="button is-gray is-medium is-fullwidth">
+                Enviar por WhatsApp
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // ===== CARRUSEL =====
+    const track = document.getElementById('carouselTrack');
+    let index = 0;
+
+    setInterval(() => {
+      index++;
+      if (index > track.children.length - 3) {
+        index = 0;
+      }
+      track.style.transform = `translateX(-${index * 33.33}%)`;
+    }, 3000);
+
+
+    // ===== FORMULARIO WHATSAPP PRO =====
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const evento = document.getElementById('evento').value;
+      const mensaje = document.getElementById('mensaje').value.trim();
+
+      if (!nombre || !telefono || !evento) {
+        alert("Completa todos los campos obligatorios 🖤");
+        return;
+      }
+
+      const texto = `*Nueva solicitud - NOIR*%0A
+━━━━━━━━━━━━━━━%0A
+👤 *Nombre:* ${nombre}%0A
+📞 *Teléfono:* ${telefono}%0A
+🎉 *Evento:* ${evento}%0A
+📝 *Detalles:* ${mensaje}%0A
+━━━━━━━━━━━━━━━%0A
+📍 *Origen:* Landing Noir`;
+
+      const numero = "527226950493";
+
+      window.open(`https://wa.me/${numero}?text=${texto}`, '_blank');
+
+      alert("Solicitud enviada correctamente 🖤");
+    });
+  </script>
+
+</body>
+</html>
